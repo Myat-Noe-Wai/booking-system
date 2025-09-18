@@ -5,6 +5,7 @@ import com.bookingsystem.model.User;
 import com.bookingsystem.repo.UserRepository;
 import com.bookingsystem.shared.JwtUtil;
 import com.bookingsystem.shared.exception.EmailAlreadyExistException;
+import com.bookingsystem.shared.exception.GeneralException;
 import com.bookingsystem.shared.exception.UserNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class UserService {
             throw new EmailAlreadyExistException("Email already exists");
         }
         if (userRepository.existsByUsername(request.username)) {
-            throw new RuntimeException("Username already exists");
+            throw new GeneralException("Username already exists");
         }
 
         User user = new User();
@@ -65,7 +66,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         if (!passwordEncoder.matches(request.password, user.getPassword())) {
-            throw new RuntimeException("Invalid password");
+            throw new GeneralException("Invalid password");
         }
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
@@ -108,7 +109,7 @@ public class UserService {
 
     public void verifyEmail(String token) {
         User user = userRepository.findByVerificationToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid verification token"));
+                .orElseThrow(() -> new GeneralException("Invalid verification token"));
 
         user.setEmailVerified(true);
         user.setVerificationToken(null); // clear token
@@ -120,7 +121,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
-            throw new RuntimeException("Old password does not match");
+            throw new GeneralException("Old password does not match");
         }
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
