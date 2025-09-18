@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: BookingSystem
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/booking_system
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Ensures Hibernate updates schema automatically
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    jwt:
+      secret-key: "s8#Gv2!kLz@rNp$QyW1^dTx3&VoUbKmC"  # Secure this in production
+      expiration: 86400000 #600,000 is 10 minutes, set 86400000 for 24 hours
+      refresh-expiration: 604800000
+
+  logging:
+    level:
+      org:
+        springframework:
+          security: DEBUG
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+  web:
+    resources:
+      add-mappings: false
