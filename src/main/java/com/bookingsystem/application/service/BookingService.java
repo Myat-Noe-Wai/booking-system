@@ -15,6 +15,7 @@ import com.bookingsystem.shared.exception.GeneralException;
 import com.bookingsystem.shared.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BookingService {
 
     private final ClassScheduleRepository classScheduleRepository;
@@ -97,7 +99,6 @@ public class BookingService {
         try {
             // recount current booked under lock
             long bookedCount = bookingRepository.findByClassScheduleIdAndStatus(schedule.getId(), BookingStatus.BOOKED).size();
-
             Booking booking = new Booking();
             booking.setUser(userPackage.getUser());
             booking.setClassSchedule(schedule);
@@ -183,6 +184,8 @@ public class BookingService {
 
         try {
             long bookedCount = bookingRepository.findByClassScheduleIdAndStatus(schedule.getId(), BookingStatus.BOOKED).size();
+            log.info("Booked count: {}", bookedCount);
+            log.info("Total slot: {}", schedule.getTotalSlots());
             if (bookedCount < schedule.getTotalSlots()) {
                 List<Booking> waitlist = bookingRepository.findByClassScheduleIdAndStatusOrderByBookedAtAsc(schedule.getId(), BookingStatus.WAITLIST);
                 if (!waitlist.isEmpty()) {
