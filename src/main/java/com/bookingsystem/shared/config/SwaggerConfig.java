@@ -1,4 +1,4 @@
-package com.bookingsystem.shared;
+package com.bookingsystem.shared.config;
 
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;

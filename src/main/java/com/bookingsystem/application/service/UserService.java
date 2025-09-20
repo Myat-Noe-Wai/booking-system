@@ -3,7 +3,7 @@ import com.bookingsystem.application.dto.*;
 import com.bookingsystem.application.enums.Role;
 import com.bookingsystem.model.User;
 import com.bookingsystem.repo.UserRepository;
-import com.bookingsystem.shared.JwtUtil;
+import com.bookingsystem.shared.config.JwtUtil;
 import com.bookingsystem.shared.exception.EmailAlreadyExistException;
 import com.bookingsystem.shared.exception.GeneralException;
 import com.bookingsystem.shared.exception.UserNotFoundException;

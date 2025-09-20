@@ -1,4 +1,4 @@
-package com.bookingsystem.shared;
+package com.bookingsystem.shared.config;
 
 import com.bookingsystem.model.User;
 import com.bookingsystem.repo.UserRepository;

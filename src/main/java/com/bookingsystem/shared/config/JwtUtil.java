@@ -1,4 +1,4 @@
-package com.bookingsystem.shared;
+package com.bookingsystem.shared.config;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

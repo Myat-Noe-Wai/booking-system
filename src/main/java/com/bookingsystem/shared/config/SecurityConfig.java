@@ -1,4 +1,4 @@
-package com.bookingsystem.shared;
+package com.bookingsystem.shared.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
