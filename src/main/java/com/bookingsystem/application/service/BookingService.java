@@ -140,6 +140,7 @@ public class BookingService {
      */
     @Transactional
     public void cancelBooking(Long bookingId, Long userId) {
+        log.info("Cancel booking bu userId:{} ", userId);
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Booking", bookingId));
 
