@@ -156,6 +156,7 @@ public class BookingService {
         // - If was BOOKED and canceled more than 4 hours before class start => refund credits back to same UserPackage
         // - If was WAITLIST => refund immediately (credits were deducted at waitlist time)
         if (booking.getStatus() == BookingStatus.BOOKED) {
+            //if class schedule time is 1pm, booking is made at 8am, 8+4=12pm, 1pm comes after 12pm
             if (schedule.getStartTime().isAfter(LocalDateTime.now().plusHours(4))) {
                 // refund to same UserPackage used
                 if (usedPackage != null) {
